@@ -21,26 +21,17 @@ public class FestivalPage {
 
 	@Autowired FestivalCrawling fc;
 
-	public void paging(String url) {
+	public void paging() {
 		pageSize=4;
-
-		List<String> lista = new ArrayList<>();
-//		lista = (List<String>) fc.crawling(url).get("titles");
-
-		int a = lista.size();
-		totalCount =a;
-
 		pageCount = (totalCount % pageSize !=0)?(totalCount /pageSize)+1 : totalCount / pageSize;
 		startRow = (pageNum < 1)? 0 : (pageNum-1)*pageSize;
 		endRow =(pageNum ==pageCount)?totalCount -1:startRow+pageSize-1;
-
 		blockCount = (pageCount % BLOCK_SIZE !=0)?(pageCount/BLOCK_SIZE)+1 : pageCount / BLOCK_SIZE;
 		blockNum = (pageNum-1)/BLOCK_SIZE;
 		startPage = blockNum *BLOCK_SIZE +1;
 		endPage= (blockCount-1 == blockNum ) ? pageCount: startPage+(BLOCK_SIZE-1);
 		existPrev = (blockNum !=0)  ;
 		existNext = (blockNum < blockCount-1);
-
 		nextBlock = startPage + BLOCK_SIZE ; 
 		prevBlock = startPage - BLOCK_SIZE;
 	}

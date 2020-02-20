@@ -49,10 +49,10 @@ deleteinfo =(()=>{
 				dataType:`json`,
 				contentType:`application/json`,
 				success:d=>{
-					alert(`회원탈퇴성공`)
+					alert(`탈퇴되었습니다.`)
                 	mainHome.onCreate()
 				},error:e=>{
-					alert(`탈퇴실패`)
+					alert(`다시 시도해주세요.`)
 				}
 			})
                 

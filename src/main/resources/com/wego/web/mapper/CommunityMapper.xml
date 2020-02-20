@@ -34,8 +34,8 @@
 	</select>
     
     <insert id="insertCommunity" parameterType="com.wego.web.community.Community">
-    	insert into board(userid, art_img, title, content) values
-			(#{userid}, #{art_img}, #{title}, #{content})
+    	insert into board(art_img, title, content) values
+			(#{art_img}, #{title}, #{content})
     </insert>
     <select id="countCommunity" resultType="int">
     	select count(*) from board 
@@ -49,9 +49,9 @@
 		select max(art_seq) from board where userid like #{userid} 
 	</select>
     
-	<insert id="insertIMG" parameterType="com.wego.web.community.Community">
-    	update board set art_img = #{art_img} where art_seq like #{art_seq}
-    </insert>
+	<update id="insertIMG" parameterType="com.wego.web.community.Community">
+       update board set art_img = #{art_img} where art_seq like #{art_seq}
+    </update>
 
 	<select id="selectReply" parameterType="int" resultType="com.wego.web.community.Reply">
 			select *
@@ -67,4 +67,9 @@
 			on r.art_seq  like c.art_seq 
 			where r.art_seq LIKE #{art_seq}
 		</select> 
+  <select  id="getcommunityseq" resultType="string">
+     SELECT art_seq
+   FROM board
+   ORDER BY art_seq DESC LIMIT 1
+  </select>
 </mapper>

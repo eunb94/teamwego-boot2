@@ -1,6 +1,7 @@
 var festival = festival||{}
 festival = (()=>{
 	const WHEN_ERR = `호출하는 festival js가 없음`
+	const PATH = "/resources/wegoimg/festival/"
 		let js;
 	    let mainVuejs, festivalvuejs,routerjs,festivalDetailjs;
 		let init = ()=>{
@@ -30,6 +31,7 @@ festival = (()=>{
 	let setContentView=()=>{
 		 let x = {css:$.css(),img:$.img()}	
 			$(`#mainbody`).html(festival_vue.fmain_body())
+			festivalList({nowPage: 1})
 	}
 	
 	let festivalcraw=()=>{
@@ -42,25 +44,43 @@ festival = (()=>{
 	}
 
 	let festivalList =x=>{
-		$.getJSON(`/festival/flist`,d=>{
-			let f = d.festival
-			$.each(f, (i,j)=>{
+		$.getJSON(`/festival/flist/`+x.nowPage,d=>{
+			alert(d.length)
+			
+			$.each(d, (i,j)=>{ 
 				$(`<div class="col-lg-6 col-md-6">  
     						<div class="single_place"> 
-    							<img src="${j.festival_img}" alt="" style="min-inline-size:-webkit-fill-available">  
+    							<img src="${PATH}${j.festival_img}" alt="" style="min-inline-size:-webkit-fill-available">  
     							<div class="hover_Text d-flex align-items-end justify-content-between"> 
     								<div class="hover_text_iner"> 
-    								 <a id="id${j.festival_seq}" href="#" class="place_btn"><img src="${j.festival_img}" alt=""></a> <h3 id="festival_title${i}">${j.festival_title}</h3> 
+    								 <a id="id${j.festival_seq}" href="#" class="place_btn"><img src="${PATH}${j.festival_img}" alt=""></a> <h3 id="festival_title${i}">${j.festival_title}</h3> 
     								 <p>${j.festival_date}</p>  
     								 <div class="place_review"></div></div> 
     								 	</div></div></div>`)
     								 	.appendTo(`#festivalList`)
     								 	$(`#id`+j.festival_seq).click(e=>{
 											 e.preventDefault()
-											 localStorage.setItem(`festival_title`, $(`#festival_title`+i).text())
+											 localStorage.setItem('festival_title', $(`#festival_title`+i).text())
+											 localStorage.setItem('festival_seq', $(`#festival_seq`+i).text())
     								 		festivalDetail.festival_list({festival_seq:j.festival_seq})
     								 	})
 			})
+
+			 let i = 0;
+						    for(i = pxy.startPage; i <= pxy.endPage ; i++) {
+						    	if(pxy.pageNum == i){
+						    		$('<li class="page-item"><a class="page-link" href="#">'+i+'</a></li>')
+									 .appendTo('#paginations')
+									 .addClass('active')
+						    	}else{
+						    	$('<li class="page-item"><a class="page-link" href="#">'+i+'</a></li>')
+								 .appendTo('#paginations')
+								 .click(function(){
+									 alert('페이지 번호 >>>' + $(this).children('.page-link').text())
+									 recent_updates({page: $(this).children('.page-link').text() , size: pxy.pageSize})
+								 })
+						    	}		 
+						    }
 		})
 	}
 	

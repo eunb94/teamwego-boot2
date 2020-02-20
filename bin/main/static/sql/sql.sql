@@ -72,15 +72,9 @@ create table festivalbook
                 foreign key (userid) references users(userid))default character set utf8 collate utf8_general_ci;
 create table board
      (art_seq int(10) primary key auto_increment,
-     userid varchar(20),
      art_img varchar(500),
      title varchar(100),
-     content varchar(500),
-     tour_seq int(10),
-     festival_seq int(10),
-     foreign key (festival_seq) references festival(festival_seq),
-     foreign key (tour_seq) references tourism(tour_seq),
-     foreign key(userid) references users(userid))default character set utf8 collate utf8_general_ci;
+     content varchar(500))default character set utf8 collate utf8_general_ci;
 create table liketo(likeseq int(10) primary key  auto_increment,
       			art_seq int(10) not null ,
 		       	userid varchar(30) ,

@@ -1,7 +1,7 @@
 "use strict"
 var adminjoin = adminjoin ||{}
 adminjoin=(()=>{
-	const WHEN_ERR = `호출하는 admin 페이지가 없음`
+	const WHEN_ERR = '호출하는 admin 페이지가 없음'
 	let js;
 	let mainVuejs;
 	let adminjoinvuejs
@@ -9,10 +9,10 @@ adminjoin=(()=>{
 	let loginjs
 	let init = () => {
 		js = $.js()
-		adminjoinvuejs = js + `/adminvue/adminjoin_vue.js`
-		mainVuejs = js +`/vue/mainVue.js`
-		mainHomejs = js + `/cmm/mainHome.js`
-		loginjs =js+`/withcs/login.js`
+		adminjoinvuejs = js + '/adminvue/adminjoin_vue.js'
+		mainVuejs = js +'/vue/mainVue.js'
+		mainHomejs = js + '/cmm/mainHome.js'
+		loginjs =js+'/withcs/login.js'
 	}
 	let onCreate=()=>{
 		init()
@@ -37,38 +37,38 @@ adminjoin=(()=>{
 
 	
 	let goadminjoin=()=>{
-		$(`#pwdck`).keyup(()=>{
-			if( $(`#apwd`).val() != $(`#pwdck`).val() ){
-				$(`#pwdNotice`)
-				.val(`비밀번호가 일치하지 않습니다`)
-				.css(`color`, `red`)
+		$('#pwdck').keyup(()=>{
+			if( $('#apwd').val() != $('#pwdck').val() ){
+				$('#pwdNotice')
+				.val('비밀번호가 일치하지 않습니다')
+				.css('color', 'red')
 		        
 			}else{
-				$(`#pwdNotice`)
-				.val(`비밀번호 일치 합니다`)
-				.css(`color`, `blue`)
+				$('#pwdNotice')
+				.val('비밀번호 일치 합니다')
+				.css('color', 'blue')
 				}
 			})
-		$(`#adminjoin_btn`).click(e=>{
+		$('#adminjoin_btn').click(e=>{
 			e.preventDefault() 
 		let data = {admin_id:$(`#aid`).val(),admin_pwd:$(`#apwd`).val(),
 					tel:($(`#tel1`).val()+$(`#tel2`).val()+$(`#tel3`).val()),
 					admin_addr:($(`#sample6_address`).val()+$(`#sample6_detailAddress`).val())}
 		
 			$.ajax({
-	    	url : `/admin/`,
-	    	type : `POST`,
-	    	dataType : `json`,
+	    	url : '/admin/',
+	    	type : 'POST',
+	    	dataType : 'json',
 	    	data : JSON.stringify(data),
-	    	contentType : `application/json`,
+	    	contentType : 'application/json',
 	    	success : d => {
-	    			if(d.msg === `SUCCESS`){
+	    			if(d.msg === 'SUCCESS'){
 	    				login.onCreate()
 	    			}else
-	    				alert(`회원가입 실패`)
+	    				alert('회원가입 실패')
 	    	},
 	    	error : e => {
-	    		alert(`AJAX 실패`);
+	    		alert('AJAX 실패');
 	    	}
 		})
 		
@@ -76,18 +76,18 @@ adminjoin=(()=>{
 	}
 
 	/*let fileupload=()=>{
-		$(window).unbind(`scroll`);
+		$(window).unbind('scroll');
 		var uploadFiles = [];
-		$("#fileup").on(`dragenter`, function(e) { //드래그 요소가 들어왔을떄
-			$(this).addClass(`drag-over`);
-		}).on(`dragleave`, function(e) { //드래그 요소가 나갔을때
-			$(this).removeClass(`drag-over`);
-		}).on(`dragover`, function(e) {
+		$("#fileup").on('dragenter', function(e) { //드래그 요소가 들어왔을떄
+			$(this).addClass('drag-over');
+		}).on('dragleave', function(e) { //드래그 요소가 나갔을때
+			$(this).removeClass('drag-over');
+		}).on('dragover', function(e) {
 			e.stopPropagation();
 			e.preventDefault();
-		}).on(`drop`, function(e) { //드래그한 항목을 떨어뜨렸을때
+		}).on('drop', function(e) { //드래그한 항목을 떨어뜨렸을때
 			e.preventDefault();
-			$(this).removeClass(`drag-over`);
+			$(this).removeClass('drag-over');
 			var files = e.originalEvent.dataTransfer.files; //드래그&드랍 항목
 			for(var i = 0; i < files.length; i++) {
 			var file = files[i];
@@ -95,25 +95,25 @@ adminjoin=(()=>{
 				preview(file, size - 1); //미리보기 만들기
 			}
 
-			$(`#adminjoin_btn`).click(e=>{
+			$('#adminjoin_btn').click(e=>{
 			e.preventDefault();
 			let json = {
-  				title : $(`#form_write input[name="title"]`).val(),
-				content : $(`#form_write textarea[name="content"]`).val()
+  				title : $('#form_write input[name="title"]').val(),
+				content : $('#form_write textarea[name="content"]').val()
 			}
 			$.ajax({
-				url:`/admin/`,
-				type:`POST`,
+				url:'/admin/',
+				type:'POST',
 				data:JSON.stringify(json),
-				dataType:`json`,
-				contentType:`application/json`,
+				dataType:'json',
+				contentType:'application/json',
 				success:d=>{
 				let formData = new FormData()
-				formData.append(`uploadFile`,file)
+				formData.append('uploadFile',file)
 				$.ajax({
-					url: `/admin/fileupload`,
+					url: '/admin/fileupload',
 					data : formData,
-					type : `POST`,
+					type : 'POST',
 					contentType : false,
 					processData: false,
 					success : d=> {
@@ -122,7 +122,7 @@ adminjoin=(()=>{
 					login.onCreate()
 				},
 				error:e=>{
-					alert(` 회원가입 실패`)
+					alert(' 회원가입 실패')
 				}
 			})
 		})
@@ -133,7 +133,7 @@ adminjoin=(()=>{
 			return function(e) {
 			var div = `<div class="thumb" style="width:100px; height:80px"> <div class="close" data-idx=${idx}>X</div> 
 				<img src=${e.target.result} style="width:50px; height:50px" /> </div>`;
-			$(div).appendTo(`#thumbnails`)
+			$(div).appendTo('#thumbnails')
 			};
 			})(file, idx);
 			reader.readAsDataURL(file);
@@ -142,8 +142,8 @@ adminjoin=(()=>{
 	});
 		$("#thumbnails").on("click", ".close", function(e) {
 		var $target = $(e.target);
-		var idx = $target.attr(`data-idx`);
-		uploadFiles[idx].upload = `disable`; //삭제된 항목은 업로드하지 않기 위해 플래그 생성
+		var idx = $target.attr('data-idx');
+		uploadFiles[idx].upload = 'disable'; //삭제된 항목은 업로드하지 않기 위해 플래그 생성
 		$target.parent().remove(); //프리뷰 삭제
 		});
 
@@ -154,27 +154,27 @@ adminjoin=(()=>{
 		$(`#addr_btn`).click(()=>{
 			new daum.Postcode({
             oncomplete: function(data) {
-                var addr = ``; 
-                var extraAddr = ``;
-                if (data.userSelectedType === `R`) {
+                var addr = ''; 
+                var extraAddr = '';
+                if (data.userSelectedType === 'R') {
                     addr = data.roadAddress;
                 } else {
                     addr = data.jibunAddress;
                 }
-                if(data.userSelectedType === `R`){
-                    if(data.bname !== `` && /[동|로|가]$/g.test(data.bname)){
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                         extraAddr += data.bname;
                     }
-                    if(data.buildingName !== `` && data.apartment === `Y`){
-                        extraAddr += (extraAddr !== `` ? `, ` + data.buildingName : data.buildingName);
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                     }
-                    if(extraAddr !== ``){
-                        extraAddr = ` (` + extraAddr + `)`;
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
                     }
                 } else {
-                    document.getElementById("sample6_extraAddress").value = ``;
+                    document.getElementById("sample6_extraAddress").value = '';
                 }
-                document.getElementById(`sample6_postcode`).value = data.zonecode;
+                document.getElementById('sample6_postcode').value = data.zonecode;
                 document.getElementById("sample6_address").value = addr;
                 document.getElementById("sample6_detailAddress").focus();
             }

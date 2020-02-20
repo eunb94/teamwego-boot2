@@ -39,24 +39,7 @@ findinfo=(()=>{
 				 login.onCreate()
 				
 			 })
-	              /* $.ajax({
-	            	   url : `/user/`+$(`#uname`).val()+`/findid/`+$(`#tel`).val(),
-	            	   type : `GET`,
-	            	   data : JSON.stringify({
-	            		   	  uname:$(`#uname`).val(),
-	            		   	  tel: $(`#tel`).val()}),
-	            	   dataType : `json`,
-	            	   contentType : `application/json`,
-	            	   success : d=>{
-	            		   let s = d.user
-	            		   alert("찾으시는 아이디는  [ "+s.uid+ " ] 입니다.")
-	            		   login.onCreate()
-	            	   },
-	            	   error : e => {
-	            		   alert(`실패`)
-	            		   findinfo.finduid()
-	       	    	}
-	               })*/
+	             
 		})
 		}
 
@@ -78,7 +61,7 @@ findinfo=(()=>{
 	            		   login.onCreate()
 	            	   },
 	            	   error : e => {
-	            		   alert(`실패`)
+	            		   alert(`다시 시도해주세요.`)
 	            		   findinfo.findupwd()
 	       	    		
 	       	    	}

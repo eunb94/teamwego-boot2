@@ -2,6 +2,7 @@ package com.wego.web.festival;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wego.web.mapper.FestivalMapper;
+import com.wego.web.proxy.PageProxy;
 import com.wego.web.util.Printer;
 
 @Lazy
@@ -32,17 +34,21 @@ public class FestivalController {
 	@Autowired FestivalServiceImpl festivalservice;
 	@Autowired FestivalBook festivalbook;
 	@Autowired FestivalMapper festivalmapper;
+	@Autowired FestivalPage pager;
 	
 	@GetMapping("/crawling")
 	   public ArrayList<HashMap<String, String>> festival() throws Exception{
 	      return fc.crawling();
 	   }
 	
-	@GetMapping("/flist")
-	public Map<?,?> fastivallist(){
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("festival", festivalservice.findFestivalList(festival));
-		return map;
+	@GetMapping("/flist/{nowPage}")
+	public List<Festival> fastivallist(@PathVariable int nowPage){
+		pager.setPageNum(nowPage);
+		System.out.println("나우"+nowPage);
+		pager.setTotalCount(festivalservice.findCountAll());
+		pager.paging();
+		System.out.println("테스트"+festivalservice.findFestivalList(pager));
+		return festivalservice.findFestivalList(pager);
 	}
 	
 	@GetMapping("/finfo/{festival_seq}")
@@ -55,13 +61,12 @@ public class FestivalController {
 	}
 	
 	@PostMapping("/festivalend")
-	public Map<?,?> insertbook(@RequestBody FestivalBook param){
-		Consumer<FestivalBook> c= t -> festivalmapper.insertFestivalBook(param);
-		c.accept(param);
-		map.clear();
-		map.put("msg","SUCCESS");
-		return map;
-	}
-	
+	   public Map<?,?> insertbook(@RequestBody FestivalBook param){
+	      Consumer<FestivalBook> c= t -> festivalmapper.insertFestivalBook(param);
+	      c.accept(param);
+	      map.clear();
+	      map.put("msg","SUCCESS");
+	      return map;
+	   }
 	
 }

@@ -79,7 +79,7 @@ userjoin=(()=>{
 	    			if(d.msg === `SUCCESS`){
 	    				login.onCreate()
 	    			}else
-	    				alert(`회원가입 실패`)
+	    				alert(`다시 시도해주세요.`)
 	    	},
 	    	error : e => {
 	    		alert(`필수값을 입력해 주세요`)
